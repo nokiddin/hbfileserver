@@ -1,4 +1,6 @@
 .PHONY: all deploy run
+all: deploy;
+
 include stdmacros.mk
 
 
@@ -8,18 +10,17 @@ PACROOT=${HOME}/env/conf/autoproxy;
 
 OS=Darwin
 
-all: deploy;
 
 deploy: copy/${PROGRAM}.js copy/${PROGRAM} deploy.${OS}
 
-deploy.Darwin: installplist-Darwin/install/Darwin/com.nokiddin.hailbopp.hbfileserver.plist
+deploy.Darwin: installplist-Darwin/install.Darwin/com.nokiddin.hailbopp.hbfileserver.plist
 
 copy/%: 
 	@${CP} ${@F} ${DEST}/;
 
 
 installplist-Darwin/%:
-	sudo ${CP} ${@F} /Library/LaunchDaemons
+	df=${@D} ff=${@F}; sudo ${CP} $$(basename $$df)/$$ff /Library/LaunchDaemons
 	sudo chown root:wheel /Library/LaunchDaemons/${@F}
 
 
