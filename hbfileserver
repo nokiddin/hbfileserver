@@ -1,0 +1,36 @@
+#!/bin/sh
+
+port=18888;
+PACROOT="$HOME/env/conf/autoproxy";
+PROGRAM=hbfileserver.js
+export NODE_PATH="/usr/local/lib/node_modules:.:$HOME/bin";
+
+retval=22;  # EINVAL 
+
+args=$(getopt -p:-d: $*); 
+[ $? -eq 0 ] || help;  
+set -- $args;  
+
+for a ; do
+case "$a" in 
+p) port="${2}"; shift;
+   shift;;
+d) PACROOT="${2}"; shift;
+   shift;; 
+esac
+done
+
+
+# help node.js find the PROGRAM file in NODE_PATH ! 
+found=0;
+retval=2;
+while read -d: dir; do
+	if [ -d "$dir" ] && [ -f "$dir/$PROGRAM" ]; then 
+		found=1;
+		env node "${dir}/${PROGRAM}" -p "$port" -d "$PACROOT"; # the pac file server will run on http port 18888 
+		retval=$?;
+		[ $found = 0 ] || break;
+	fi
+done <<< ".:${NODE_PATH}:"; # DEVNOTE: append sentinel ':' to search path  
+
+exit "$retval";

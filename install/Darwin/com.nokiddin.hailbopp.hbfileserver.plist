@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vim: ft=xml:ts=2:et:sts=2:sw=2: 
+-->
+<!--
+DEVNOTE: Based on https://superuser.com/a/102135 
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.nokiddin.hailbopp.hbfileserver</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/nishad/bin/hbfileserver</string>
+		<!--
+        <string>-p</string>
+        <string>58888</string>
+        <string>-d</string>
+        <string>/Users/nishad/env/conf/autoproxy</string>
+		-->
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>UserName</key>
+    <string>nishad</string>
+    <key>KeepAlive</key>
+    <true/>
+</dict>
+</plist>
